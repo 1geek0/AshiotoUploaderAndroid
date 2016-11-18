@@ -34,6 +34,6 @@ public interface AshiotoRetrofitInterface {
     Call<GatesListResponse> getGates(@Query("event") String eventCode);
 
     //Login call
-    @POST("/login")
-    Call<AuthResponse> authenticate(@Query("email") String email, @Query("password") String password);
+    @POST("/mobileauth")
+    Call<AuthResponse> authenticate(@Query("email") String email, @Query("pass") String password);
 }
