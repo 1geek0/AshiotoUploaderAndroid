@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_login"
+    android:orientation="vertical"
+    android:layout_width="match_pa]] rent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_gravity="center_vertical"
+    tools:context="xyz.ashioto.ashioto.LoginActivity"
+    tools:showIn="@layout/activity_login">
+    <android.support.v7.widget.AppCompatTextView
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="45sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_email"
+                android:maxLines="1"
+                android:textColorHint="@color/white"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_password"
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:hint="@string/pass_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/login_submit"
+            android:layout_weight="1"
+            android:text="@string/action_sign_in_short"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.ButtonBarLayout>
+</android.support.v7.widget.LinearLayoutCompat>
