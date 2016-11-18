@@ -35,5 +35,5 @@ public interface AshiotoRetrofitInterface {
 
     //Login call
     @POST("/login")
-    Call<AuthResponse> authenticate(@Query("email") String email, @Query("pass") String password);
+    Call<AuthResponse> authenticate(@Query("email") String email, @Query("password") String password);
 }
