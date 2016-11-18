@@ -56,4 +56,7 @@ dependencies {
 
     //EasyPrefs library for quick
     compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
+
+    //AesCrypt for password encryption
+    compile 'com.scottyab:aescrypt:0.0.1'
 }
