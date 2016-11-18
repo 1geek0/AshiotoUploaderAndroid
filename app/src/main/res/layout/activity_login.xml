@@ -8,9 +8,9 @@
     android:padding="16dp"
     tools:context="xyz.ashioto.ashioto.LoginActivity">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/content_login" />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/content_login" />
 
 </android.support.design.widget.CoordinatorLayout>
