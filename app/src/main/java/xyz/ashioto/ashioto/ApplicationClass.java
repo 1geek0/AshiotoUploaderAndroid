@@ -1,6 +1,7 @@
 package xyz.ashioto.ashioto;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -24,6 +25,7 @@ public class ApplicationClass extends Application {
     }
 
     //Retrofit singleton
+    @NonNull
     public static Retrofit getRetrofit(){
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.base_url)
