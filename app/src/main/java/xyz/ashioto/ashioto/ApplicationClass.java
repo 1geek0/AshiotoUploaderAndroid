@@ -1,6 +1,8 @@
 package xyz.ashioto.ashioto;
 
 import android.app.Application;
+import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import retrofit.GsonConverterFactory;
