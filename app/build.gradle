@@ -17,9 +17,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("String", "base_url", "\"http://ashioto.xyz\"")
+            buildConfigField("String", "aes_pass", "\"0Ashioto1LovesPasswords2048!\"")
         }
         debug{
             buildConfigField("String", "base_url", "\"http://10.0.1.136\"")
+            buildConfigField("String", "aes_pass", "\"0Ashioto1LovesPasswords2048!\"")
         }
     }
 }
