@@ -16,10 +16,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "base_url", "http://ashioto.xyz")
+            buildConfigField("String", "base_url", "\"http://ashioto.xyz\"")
         }
         debug{
-            buildConfigField("String", "base_url", "http://ashioto.xyz")
+            buildConfigField("String", "base_url", "\"http://10.0.1.136\"")
         }
     }
 }
