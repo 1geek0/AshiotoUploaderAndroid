@@ -13,6 +13,7 @@ import retrofit.Retrofit;
 
 public class ApplicationClass extends Application {
     private static ApplicationClass instance;
+    private static Retrofit retrofit;
 
     @Override
     public void onCreate() {
@@ -27,8 +28,15 @@ public class ApplicationClass extends Application {
     //Retrofit singleton
     @NonNull
     public static Retrofit getRetrofit(){
-        return new Retrofit.Builder()
+         retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.base_url)
                 .addConverterFactory(GsonConverterFactory.create()).build();
+
+        return retrofit;
+    }
+
+    @NonNull
+    public static AshiotoRetrofitInterface getRetrofitInterface(){
+        return getRetrofit().create(AshiotoRetrofitInterface.class);
     }
 }
