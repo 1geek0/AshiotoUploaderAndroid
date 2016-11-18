@@ -36,8 +36,7 @@
         android:indeterminateBehavior="cycle"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:targetApi="lollipop" />
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bluetooth_list"

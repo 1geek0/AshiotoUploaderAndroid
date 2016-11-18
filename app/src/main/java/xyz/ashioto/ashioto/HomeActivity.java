@@ -3,6 +3,7 @@ package xyz.ashioto.ashioto;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothState;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,6 +42,9 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.bluetooth_list) //RecyclerView for bluetooth list
     RecyclerView bluetooth_list;
 
+    @BindView(R.id.bluetooth_list_progressbar)
+    ProgressBar bluetooth_list_progressbar;
+
     RecyclerView.Adapter bluetooth_list_adapter; //Adapter for bluetooth list
 
     //Arraylist for HC devices
@@ -48,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     Set<BluetoothDevice> BondedDeviceSet;
 
     SharedPreferences sharedPreferences;
+    Handler taskHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +74,21 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setUpBluetoothList();
-        setUpBluetoothAdapters();
+        //Enable bluetooth if not enabled already
+        if (!bluetoothSPP.isBluetoothEnabled()){
+            bluetoothSPP.enable();
+        }
+        /*Run bluetooth setup methods after 5 seconds of enabling bluetooth adapter.
+        *Note: This is not a good way to do it
+        * TODO 19/11/16: Find a better way to make sure bluetooth is access only after making sure it is turned on
+        */
+        taskHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setUpBluetoothList();
+                setUpBluetoothAdapters();
+            }
+        },5000);
     }
 
     @Override
@@ -90,6 +111,7 @@ public class HomeActivity extends AppCompatActivity {
         if (bluetoothSPP.isDiscovery()){
             bluetoothSPP.cancelDiscovery();
         }
+        bluetooth_list_progressbar.setVisibility(View.GONE);
         bluetoothSPP.startDiscovery(); //Start device discovery
     }
 
