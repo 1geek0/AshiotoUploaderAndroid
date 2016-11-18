@@ -16,8 +16,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "base_url", "http://ashioto.xyz")
+        }
+        debug{
+            buildConfigField("String", "base_url", "http://ashioto.xyz")
         }
     }
+}
+
+repositories{
+    maven { url "http://dl.bintray.com/pixplicity/maven" } //Repository for easyprefs
 }
 
 dependencies {
@@ -45,4 +53,7 @@ dependencies {
     //Retrofit for HTTP
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2' //Gson converter for json parsing
+
+    //EasyPrefs library for quick
+    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
 }
