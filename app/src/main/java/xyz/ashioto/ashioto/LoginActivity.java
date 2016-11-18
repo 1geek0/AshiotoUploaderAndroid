@@ -1,6 +1,7 @@
 package xyz.ashioto.ashioto;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,11 +31,17 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_password)
     AppCompatEditText login_password;
 
+    SharedPreferences sharedPreferences;
+
+    SharedPreferences.Editor sharedPrefEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
+        sharedPrefEditor = sharedPreferences.edit();
     }
 
     @OnClick(R.id.login_submit)
@@ -44,12 +53,19 @@ public class LoginActivity extends AppCompatActivity {
     Callback<AuthResponse> loginCallback = new Callback<AuthResponse>() {
         @Override
         public void onResponse(Response<AuthResponse> response, Retrofit retrofit) {
-            if (response.body().auth) {
+            if (response.body().auth && response.body().s_admin) {
                 //If the auth call returns true, take the user to the Home activity
                 Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeStartIntent);
+                sharedPrefEditor.putString("auth-type", "s_admin").commit();
                 // TODO: 18/11/16 add support for superadmin accounts
-            } else {
+            } else if(response.body().auth && !response.body().s_admin){
+                //If the auth call returns true, take the user to the Home activity
+                Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(homeStartIntent);
+                sharedPrefEditor.putString("auth-type", "admin").commit();
+            }
+            else {
                 //If the auth call returns false, give a toast to user
                 Toast.makeText(LoginActivity.this, "Wrong email/password combination", Toast.LENGTH_SHORT).show();
             }
@@ -57,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Throwable t) {
-            //If the auth call fails due to some reaso, give a toast to user
+            //If the auth call fails due to some reason, give a toast to user
             Toast.makeText(LoginActivity.this, "Failed to login. Try again", Toast.LENGTH_SHORT).show();
         }
     };

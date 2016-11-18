@@ -2,6 +2,7 @@ package xyz.ashioto.ashioto;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
@@ -45,9 +47,18 @@ public class HomeActivity extends AppCompatActivity {
     //Set containing bonded devices
     Set<BluetoothDevice> BondedDeviceSet;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
+        // If auth-type is not set, redirect to Login activity
+        if (Objects.equals(sharedPreferences.getString("auth-type", "na"), "na")){
+            Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish(); // No Need to add flags to intent
+        }
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
     }
