@@ -58,12 +58,13 @@ public class LoginActivity extends AppCompatActivity {
                 Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeStartIntent);
                 sharedPrefEditor.putString("auth-type", "s_admin").commit();
-                // TODO: 18/11/16 add support for superadmin accounts
+                finish();
             } else if(response.body().auth && !response.body().s_admin){
                 //If the auth call returns true, take the user to the Home activity
                 Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeStartIntent);
                 sharedPrefEditor.putString("auth-type", "admin").commit();
+                finish();
             }
             else {
                 //If the auth call returns false, give a toast to user
