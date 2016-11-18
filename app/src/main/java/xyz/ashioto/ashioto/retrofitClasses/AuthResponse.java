@@ -7,4 +7,5 @@ package xyz.ashioto.ashioto.retrofitClasses;
 
 public class AuthResponse {
     public boolean auth;
+    public boolean s_admin;
 }
