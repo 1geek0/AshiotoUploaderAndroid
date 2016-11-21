@@ -90,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void setUpBluetoothList(){ //Populates device list
+        HCDeviceNameList.clear(); //Clear the list before starting to avoid repetitive list
         BondedDeviceSet = bluetoothSPP.getBluetoothAdapter().getBondedDevices();
         if (BondedDeviceSet.size() > 0){
             for (BluetoothDevice currentDevice: BondedDeviceSet){
