@@ -2,11 +2,11 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="xyz.ashioto.ashioto.HomeActivity">
 
         <android.support.v7.widget.Toolbar
@@ -16,7 +16,9 @@
             android:animateLayoutChanges="true"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white">
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/eventsSpinner"
@@ -24,19 +26,17 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:gravity="center"
-                android:maxLines="1"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                android:maxLines="1" />
         </android.support.v7.widget.Toolbar>
 
     <ProgressBar
         android:id="@+id/bluetooth_list_progressbar"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/primary"
-        android:indeterminateBehavior="cycle"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateTint="@color/primary" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bluetooth_list"
