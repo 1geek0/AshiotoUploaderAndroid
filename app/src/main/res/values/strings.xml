@@ -17,4 +17,6 @@
     <!--Labels-->
     <string name="email_label">Email</string>
     <string name="pass_label">Password</string>
+    <string name="count_label">Count</string>
+    <string name="main_count_label">Main Count</string>
 </resources>
