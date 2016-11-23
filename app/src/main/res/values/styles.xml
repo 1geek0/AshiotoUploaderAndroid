@@ -19,7 +19,6 @@
         <item name="colorControlHighlight">@android:color/white</item>
 
         <item name="colorButtonNormal">@color/accent</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -36,7 +35,7 @@
 
     <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyMaterialTheme.Dark" parent="MyMaterialTheme.Base">
-
+    <style name="MyMaterialTheme.Bluetooth" parent="MyMaterialTheme">
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>
