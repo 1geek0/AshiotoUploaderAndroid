@@ -9,24 +9,15 @@
     android:orientation="vertical"
     tools:context="xyz.ashioto.ashioto.HomeActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:animateLayoutChanges="true"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white">
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/eventsSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:gravity="center"
-                android:maxLines="1" />
-        </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:animateLayoutChanges="true"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/bluetooth_list_progressbar"
@@ -41,7 +32,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bluetooth_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" />
 
 </android.support.v7.widget.LinearLayoutCompat>
