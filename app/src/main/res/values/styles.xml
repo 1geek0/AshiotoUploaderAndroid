@@ -14,9 +14,6 @@
     </style>
 
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
-        <item name="colorAccent">@android:color/white</item>
-        <item name="colorControlActivated">@android:color/white</item>
-        <item name="colorControlHighlight">@android:color/white</item>
 
         <item name="colorButtonNormal">@color/accent</item>
     </style>
@@ -37,5 +34,8 @@
 
     <style name="MyMaterialTheme.Bluetooth" parent="MyMaterialTheme">
         <item name="android:textColor">@color/white</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
     </style>
 </resources>
