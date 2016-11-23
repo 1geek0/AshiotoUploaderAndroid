@@ -1,15 +1,25 @@
 package xyz.ashioto.ashioto;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
+import xyz.ashioto.ashioto.retrofitClasses.CountUpdateResponse;
 
 public class BluetoothActivity extends AppCompatActivity {
 
@@ -20,6 +30,26 @@ public class BluetoothActivity extends AppCompatActivity {
     //TextView for count
     @BindView(R.id.mainCount)
     AppCompatTextView countTextView;
+    @BindView(R.id.gatesRadioGroup)
+    RadioGroup gatesRadioGroup;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor sharedPrefEditor;
+    Callback<CountUpdateResponse> countUpdateResponseCallback = new Callback<CountUpdateResponse>() {
+        @Override
+        public void onResponse(Response<CountUpdateResponse> response, Retrofit retrofit) {
+            if (!response.body().error) {
+                t("Data Synced");
+            } else {
+                t("Unable To Synced");
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            t("Data Sync Failed");
+        }
+    };
     //Connection listener to handle bluetooth related tasks
     BluetoothSPP.BluetoothConnectionListener bluetoothConnectionListener = new BluetoothSPP.BluetoothConnectionListener() {
         @Override
@@ -52,8 +82,23 @@ public class BluetoothActivity extends AppCompatActivity {
             countTextView.setText(count);
         }
     };
+    private String current_event;
     //Device mac address
     private String mDeviceAddress;
+
+    @OnClick(R.id.syncbutton)
+    void syncData() {
+        if (!current_event.equals("na")) {
+            HashMap<String, String> countHashmap = new HashMap<>();
+            countHashmap.put("count", countTextView.getText().toString());
+            countHashmap.put("gateID", String.valueOf(gatesRadioGroup.indexOfChild(findViewById(gatesRadioGroup.getCheckedRadioButtonId())) + 1));
+            countHashmap.put("eventCode", current_event);
+            Call<CountUpdateResponse> updateResponseCall = ApplicationClass.getRetrofitInterface().syncData(countHashmap);
+            updateResponseCall.enqueue(countUpdateResponseCallback);
+        } else {
+            t("No Event Set!");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +128,11 @@ public class BluetoothActivity extends AppCompatActivity {
         spp.setBluetoothConnectionListener(bluetoothConnectionListener);
         //Set data receiver for bluetooth spp
         spp.setOnDataReceivedListener(dataReceivedListener);
+
+        //Sharepreferences
+        sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
+        sharedPrefEditor = sharedPreferences.edit();
+        current_event = sharedPreferences.getString("current_event", "na");
     }
 
     @Override
