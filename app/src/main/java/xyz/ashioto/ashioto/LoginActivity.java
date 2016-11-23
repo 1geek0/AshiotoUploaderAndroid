@@ -3,17 +3,9 @@ package xyz.ashioto.ashioto;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
-
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,26 +22,12 @@ public class LoginActivity extends AppCompatActivity {
     AppCompatEditText login_email;
     @BindView(R.id.login_password)
     AppCompatEditText login_password;
+    @BindView(R.id.login_event)
+    AppCompatEditText login_event;
 
     SharedPreferences sharedPreferences;
 
     SharedPreferences.Editor sharedPrefEditor;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
-        sharedPrefEditor = sharedPreferences.edit();
-    }
-
-    @OnClick(R.id.login_submit)
-    void login_submit(){
-        Call<AuthResponse> loginCall = ApplicationClass.getRetrofitInterface().authenticate(login_email.getText().toString(), login_password.getText().toString());
-        loginCall.enqueue(loginCallback);
-    }
-
     Callback<AuthResponse> loginCallback = new Callback<AuthResponse>() {
         @Override
         public void onResponse(Response<AuthResponse> response, Retrofit retrofit) {
@@ -78,4 +56,19 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Failed to login. Try again", Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
+        sharedPrefEditor = sharedPreferences.edit();
+    }
+
+    @OnClick(R.id.login_submit)
+    void login_submit() {
+        Call<AuthResponse> loginCall = ApplicationClass.getRetrofitInterface().authenticate(login_email.getText().toString(), login_password.getText().toString(), login_event.getText().toString());
+        loginCall.enqueue(loginCallback);
+    }
 }
