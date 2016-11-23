@@ -20,6 +20,7 @@ import java.util.Set;
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import xyz.ashioto.ashioto.retrofitClasses.GatesListGate;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -44,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 
     //Set containing bonded devices
     Set<BluetoothDevice> BondedDeviceSet;
+
+    ArrayList<GatesListGate> gatesListGates = new ArrayList<>();
 
     SharedPreferences sharedPreferences;
     Handler taskHandler = new Handler();
