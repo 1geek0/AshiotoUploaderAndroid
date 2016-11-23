@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -31,6 +35,9 @@ public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.bluetooth_list_progressbar)
     ProgressBar bluetooth_list_progressbar;
+
+    @BindView(R.id.home_toolbar)
+    Toolbar home_toolbar;
 
     RecyclerView.Adapter bluetooth_list_adapter; //Adapter for bluetooth list
 
@@ -58,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        setSupportActionBar(home_toolbar);
     }
 
     @Override
@@ -84,6 +92,26 @@ public class HomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bluetoothSPP.getBluetoothAdapter().disable(); //Disable bluetooth once the app is closed
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out:
+                sharedPreferences.edit().remove("current_event").commit();
+                sharedPreferences.edit().remove("auth-type").commit();
+                finish();
+                return true;
+        }
+        return true;
     }
 
 

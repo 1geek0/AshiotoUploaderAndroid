@@ -21,4 +21,5 @@
     <string name="main_count_label">Main Count</string>
     <string name="sync_label">Sync</string>
     <string name="event_code_label">Event Code</string>
+    <string name="sign_out_login">Sign Out</string>
 </resources>
