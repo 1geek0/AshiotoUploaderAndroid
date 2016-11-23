@@ -5,7 +5,7 @@ package xyz.ashioto.ashioto.retrofitClasses;
  * For defining a gate in the GatesList.
  */
 
-class GatesListGate {
+public class GatesListGate {
     public String name;
 
     GatesListGate(String name) {
