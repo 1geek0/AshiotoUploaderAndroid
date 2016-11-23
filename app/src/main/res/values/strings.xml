@@ -20,4 +20,5 @@
     <string name="count_label">Count</string>
     <string name="main_count_label">Main Count</string>
     <string name="sync_label">Sync</string>
+    <string name="event_code_label">Event Code</string>
 </resources>
