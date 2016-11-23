@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,10 +22,6 @@ import butterknife.ButterKnife;
 import xyz.ashioto.ashioto.retrofitClasses.GatesListGate;
 
 public class HomeActivity extends AppCompatActivity {
-
-    @BindView(R.id.eventsSpinner)//Spinner holding events list
-    Spinner eventsSpinner;
-
     //Bluetooth variable declaration
     BluetoothSPP bluetoothSPP = new BluetoothSPP(HomeActivity.this);
 
