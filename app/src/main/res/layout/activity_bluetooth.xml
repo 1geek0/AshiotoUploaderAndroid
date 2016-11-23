@@ -67,7 +67,9 @@
             android:id="@+id/gatesRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"></RadioGroup>
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/MyMaterialTheme.Bluetooth"
+            app:theme="@style/MyMaterialTheme.Bluetooth"></RadioGroup>
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/syncbutton"
             android:layout_width="wrap_content"
