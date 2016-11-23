@@ -1,6 +1,7 @@
 package xyz.ashioto.ashioto;
 
 import java.util.HashMap;
+
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -35,5 +36,5 @@ public interface AshiotoRetrofitInterface {
 
     //Login call
     @POST("/mobileauth")
-    Call<AuthResponse> authenticate(@Query("email") String email, @Query("pass") String password);
+    Call<AuthResponse> authenticate(@Query("email") String email, @Query("pass") String password, @Query("event") String event);
 }
