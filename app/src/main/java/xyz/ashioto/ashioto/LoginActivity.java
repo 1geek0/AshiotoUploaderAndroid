@@ -36,12 +36,14 @@ public class LoginActivity extends AppCompatActivity {
                 Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeStartIntent);
                 sharedPrefEditor.putString("auth-type", "s_admin").commit();
+                sharedPrefEditor.putString("current_event", login_event.getText().toString()).commit();
                 finish();
             } else if(response.body().auth && !response.body().s_admin){
                 //If the auth call returns true, take the user to the Home activity
                 Intent homeStartIntent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(homeStartIntent);
                 sharedPrefEditor.putString("auth-type", "admin").commit();
+                sharedPrefEditor.putString("current_event", login_event.getText().toString()).commit();
                 finish();
             }
             else {
@@ -68,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_submit)
     void login_submit() {
+        login_email.setEnabled(false);
+        login_password.setEnabled(false);
+        login_event.setEnabled(false);
         Call<AuthResponse> loginCall = ApplicationClass.getRetrofitInterface().authenticate(login_email.getText().toString(), login_password.getText().toString(), login_event.getText().toString());
         loginCall.enqueue(loginCallback);
     }

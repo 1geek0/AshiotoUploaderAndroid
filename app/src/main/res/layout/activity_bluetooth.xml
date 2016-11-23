@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sync_label"
-            app:theme="@style/MyMaterialTheme" />
+            app:theme="@style/MyMaterialTheme.Bluetooth" />
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.design.widget.CoordinatorLayout>
