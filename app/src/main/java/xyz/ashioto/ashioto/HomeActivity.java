@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,7 +24,12 @@ import java.util.Set;
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 import xyz.ashioto.ashioto.retrofitClasses.GatesListGate;
+import xyz.ashioto.ashioto.retrofitClasses.GatesListResponse;
 
 public class HomeActivity extends AppCompatActivity {
     //Bluetooth variable declaration
@@ -48,10 +54,25 @@ public class HomeActivity extends AppCompatActivity {
     //Set containing bonded devices
     Set<BluetoothDevice> BondedDeviceSet;
 
-    ArrayList<GatesListGate> gatesListGates = new ArrayList<>();
+    ArrayList<String> gatesListGates = new ArrayList<>();
 
     SharedPreferences sharedPreferences;
     Handler taskHandler = new Handler();
+    Callback<GatesListResponse> gatesListResponseCallback = new Callback<GatesListResponse>() {
+        @Override
+        public void onResponse(Response<GatesListResponse> response, Retrofit retrofit) {
+            gatesListGates.clear();
+            for (GatesListGate listGate : response.body().Gates) {
+                gatesListGates.add(listGate.getName());
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Toast.makeText(HomeActivity.this, "Couldn't Fetch Gates", Toast.LENGTH_SHORT).show();
+        }
+    };
+    private String event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +107,9 @@ public class HomeActivity extends AppCompatActivity {
                 setUpBluetoothAdapters();
             }
         },5000);
+
+        event = sharedPreferences.getString("current_event", "na");
+        getEventGates();
     }
 
     @Override
@@ -114,7 +138,6 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void setUpBluetoothList(){ //Populates device list
         HCDeviceNameList.clear(); //Clear the list before starting to avoid repetitive list
         BondedDeviceSet = bluetoothSPP.getBluetoothAdapter().getBondedDevices();
@@ -141,10 +164,20 @@ public class HomeActivity extends AppCompatActivity {
                 super.onItemClick(childView, position);
                 Intent bluetoothConnectIntent = new Intent(HomeActivity.this, BluetoothActivity.class);
                 bluetoothConnectIntent.putExtra("device-address", HCDeviceAddressList.get(position));
+                bluetoothConnectIntent.putStringArrayListExtra("event_gates", gatesListGates);
                 startActivity(bluetoothConnectIntent);
             }
         }));
         bluetooth_list_adapter = new RecyclerAdapter_bluetooth(HCDeviceNameList); //Feed device names to RecyclerView
         bluetooth_list.setAdapter(bluetooth_list_adapter);
+    }
+
+    private void getEventGates() {
+        if (!event.equals("na")) {
+            Call<GatesListResponse> gatesListResponseCall = ApplicationClass.getRetrofitInterface().getGates(event);
+            gatesListResponseCall.enqueue(gatesListResponseCallback);
+        } else {
+            Toast.makeText(HomeActivity.this, "No Event Set", Toast.LENGTH_SHORT).show();
+        }
     }
 }
