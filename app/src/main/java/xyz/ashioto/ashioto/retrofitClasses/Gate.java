@@ -2,7 +2,7 @@ package xyz.ashioto.ashioto.retrofitClasses;
 
 /**
  * Created by geek on 23/9/16.
- * For defining a gate in the GatesList.
+ * Gates list for PerGate call
  */
 
 class Gate {
