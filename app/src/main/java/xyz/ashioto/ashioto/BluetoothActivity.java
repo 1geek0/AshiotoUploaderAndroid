@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
@@ -133,6 +135,7 @@ public class BluetoothActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("sharedprefs", MODE_PRIVATE);
         sharedPrefEditor = sharedPreferences.edit();
         current_event = sharedPreferences.getString("current_event", "na");
+        setUpGates();
     }
 
     @Override
@@ -150,5 +153,14 @@ public class BluetoothActivity extends AppCompatActivity {
     //Easier toast
     private void t(String message) {
         Toast.makeText(BluetoothActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setUpGates() {
+        ArrayList<String> gateNames = getIntent().getStringArrayListExtra("event_gates");
+        for (String gate : gateNames) {
+            AppCompatRadioButton gateRadio = new AppCompatRadioButton(BluetoothActivity.this);
+            gateRadio.setText(gate);
+            gatesRadioGroup.addView(gateRadio);
+        }
     }
 }
